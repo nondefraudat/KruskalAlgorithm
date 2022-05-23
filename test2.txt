@@ -1,0 +1,9 @@
+AB 7
+AC 8
+BC 11
+BD 2
+CD 6
+CE 9
+DE 11
+DF 9
+EF 10
