@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25de82ab-02da-4d22-bf1d-c777efd8f30b" name="Changes" comment="deleted static methods in KraskalAlgorithm class&#10;created ConsoleUI class instead deleted static methods&#10;&#10;deleted excess class MinimumSpanningTree&#10;created alternative method extractMinimumSpanningTree&#10; in ConnectedUndirectedWeightedGraph class instead excess class&#10;&#10;fixed isLoop method (some return result was incorrect)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/ConsoleUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/ConnectedUndirectedWeightedGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/ConnectedUndirectedWeightedGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/ConsoleUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/GUIExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/GraphEdge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/GraphEdge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/KraskalAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/KraskalAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/nondefraudat/MinimumSpanningTree.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +82,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653301383582</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="deleted static methods in KraskalAlgorithm class&#10;created ConsoleUI class instead deleted static methods&#10;&#10;deleted excess class MinimumSpanningTree&#10;created alternative method extractMinimumSpanningTree&#10; in ConnectedUndirectedWeightedGraph class instead excess class&#10;&#10;fixed isLoop method (some return result was incorrect)">
+      <created>1653498550071</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1653498550071</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

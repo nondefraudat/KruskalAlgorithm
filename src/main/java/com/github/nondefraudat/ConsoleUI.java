@@ -7,14 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// Пользовательский интерфейс
 public class ConsoleUI {
+    // Стандартный сканер, вынесен чтобы не плодились лишние объекты
     private Scanner scanner;
+    // Флаг цикла, проограмма работает, пока он true
     private Boolean isLooped;
 
     public ConsoleUI(Scanner scanner) {
         this.scanner = scanner;
     }
 
+    // Цикл обработки команд
+    // предполагается что программа завершается тоько при вводе
+    // комманды 'exit' пользователем
     public void startHandlingLoop() {
         isLooped = true;
         showInfo();
@@ -24,6 +30,7 @@ public class ConsoleUI {
         }
     }
 
+    // Вывод основной информации о работе программы
     private static void showInfo() {
         System.out.println("= KRASKAL TREE EXTRACTOR");
         System.out.println("- Type 'typehere' to start graph input");
@@ -31,6 +38,7 @@ public class ConsoleUI {
         System.out.println("- Type 'exit' to terminate program");
     }
 
+    // Функия обработки команды
     private void handleUserInput(String userInput) {
         switch (userInput) {
             case "exit": {
@@ -64,6 +72,9 @@ public class ConsoleUI {
         return;
     }
 
+    // Функция для чтения графов из пользовательского ввода,
+    // записывает в список строки(lines) пока последняя строка не '$'
+    // полученный список возвращается без '$'
     private List<String> extractStringLinesFromConsole() {
         System.out.println("! type '$' from new string to end input");
         List<String> lines = new ArrayList<>();
@@ -74,6 +85,9 @@ public class ConsoleUI {
         return lines;
     }
 
+    // Функция для чтения графа из файла
+    // считывает весь текст из файла
+    // и разбивает на отдельные строки в список
     private List<String> extractStringLinesFromFile(String filePath) throws IOException {
         List<String> lines = new ArrayList<>();
         for (String line : Files.readString(Path.of(filePath)).split("\n")) {
@@ -82,12 +96,20 @@ public class ConsoleUI {
         return lines;
     }
 
+    // Функция обработки графа
+    // граф из списка строк формируется в объект
+    // ConnectedUndirectedWeightedGraph
+    // (связный ненаправленный взвешенный граф)
+    // полученный граф выводится(было сделано для отладки)
+    // затем преобразуется в минимальное остное дерево, на основе тогоже объекта графа
+    // и выводится, что и должно являться результатом работы программы, по задаче
     private void showGraphHandling(List<String> lines) {
         ConnectedUndirectedWeightedGraph graph = ConnectedUndirectedWeightedGraph.fromStringLines(lines);
         showGraph(graph, "Source graph:");
         showGraph(graph.extractMinimumSpanningTree(), "Target tree:");
     }
 
+    // Функция вывода графа в консоль
     private void showGraph(ConnectedUndirectedWeightedGraph graph, String head) {
         System.out.println(head);
         for (String line : graph.toStringLines()) {

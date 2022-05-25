@@ -1,5 +1,7 @@
 package com.github.nondefraudat;
 
+// Ребро графа, структура данных, в форме класса
+// хранит 2 узла, с которыми связано ребро и значение ребра
 public class GraphEdge {
     private Character leadingVertex;
     private Character terminatingVertex;
