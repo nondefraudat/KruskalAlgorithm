@@ -1,15 +1,13 @@
 package com.github.nondefraudat;
 
-import java.util.HashMap;
+import java.util.*;
 import java.lang.Character;
 import java.lang.Double;
-import java.util.Set;
-import java.util.Vector;
 
 public class ConnectedUndirectedWeightedGraph {
-    private HashMap<Character, HashMap<Character, Double>> weights;
+    private Map<Character, Map<Character, Double>> weights;
 
-    public static ConnectedUndirectedWeightedGraph fromStringLines(Vector<String> lines) {
+    public static ConnectedUndirectedWeightedGraph fromStringLines(List<String> lines) {
         ConnectedUndirectedWeightedGraph graph = new ConnectedUndirectedWeightedGraph();
         for (String line : lines) {
             String[] buffer = line.split(" ");
@@ -22,10 +20,10 @@ public class ConnectedUndirectedWeightedGraph {
         weights = new HashMap<>();
     }
 
-    public Vector<String> toStringLines() {
-        Vector<String> lines = new Vector<>();
+    public List<String> toStringLines() {
+        List<String> lines = new ArrayList<>();
         Set<Character> vertices = weights.keySet();
-        Vector<Character> usedVertices = new Vector<>();
+        List<Character> usedVertices = new ArrayList<>();
         for (Character leadingVertex : vertices) {
             usedVertices.add(leadingVertex);
             for (Character terminatingVertex : vertices) {
@@ -50,7 +48,7 @@ public class ConnectedUndirectedWeightedGraph {
     }
 
     private void setEdgeWeightDirected(Character firstVertex, Character secondVertex, Double weight) {
-        HashMap<Character, Double> buffer;
+        Map<Character, Double> buffer;
         buffer = weights.get(firstVertex);
         if (buffer != null) {
             buffer.put(secondVertex, weight);
@@ -69,8 +67,8 @@ public class ConnectedUndirectedWeightedGraph {
         setEdgeWeight(leadingVertex, terminatingVertex, null);
     }
 
-    public Vector<Character> getVerticesNames() {
-        Vector<Character> vertices = new Vector<>();
+    public List<Character> getVerticesNames() {
+        List<Character> vertices = new ArrayList<>();
         for (Character key : weights.keySet()) {
             vertices.add(key);
         }
@@ -81,10 +79,10 @@ public class ConnectedUndirectedWeightedGraph {
         return weights.get(leadingVertex).get(terminatingVertex);
     }
 
-    public Vector<GraphEdge> getEdges() {
-        Vector<GraphEdge> edges = new Vector<>();
+    public List<GraphEdge> getEdges() {
+        List<GraphEdge> edges = new ArrayList<>();
         Set<Character> vertices = weights.keySet();
-        Vector<Character> usedVertices = new Vector<>();
+        List<Character> usedVertices = new ArrayList<>();
         for (Character leadingVertex : vertices) {
             usedVertices.add(leadingVertex);
             for (Character terminatingVertex : vertices) {
@@ -100,25 +98,42 @@ public class ConnectedUndirectedWeightedGraph {
     }
 
     public Boolean isLooped() {
+        Character randomVertex = null;
         for (Character vertex : weights.keySet()) {
-            if(isLooped(vertex, null, vertex)) {
-                return true;
+            randomVertex = vertex;
+            break;
+        }
+        return isLooped(randomVertex, null, new ArrayList<>());
+    }
+
+    private Boolean isLooped(Character next, Character prev, List<Character> usedVertices) {
+        for (Character target : weights.get(next).keySet()) {
+            if (target != prev && getEdgeWeight(next, target) != null) {
+                if (usedVertices.contains(target) || isLooped(target, next, usedVertices)) {
+                    return true;
+                }
+                usedVertices.add(target);
             }
         }
         return false;
     }
 
-    private Boolean isLooped(Character current, Character prev, Character target) {
-        Set<Character> buffer = weights.get(current).keySet();
-        for (Character vertex : buffer) {
-            if (vertex != prev && getEdgeWeight(current, vertex) != null) {
-                if (vertex == target) {
-                    return true;
-                }
-                return isLooped(vertex, current, target);
+    public ConnectedUndirectedWeightedGraph extractMinimumSpanningTree() {
+        ConnectedUndirectedWeightedGraph tree = new ConnectedUndirectedWeightedGraph();
+        List<GraphEdge> edges = getEdges();
+        edges.sort(new Comparator<>() {
+            @Override
+            public int compare(GraphEdge left, GraphEdge right) {
+                return left.getWeight().compareTo(right.getWeight());
+            }
+        });
+        for (GraphEdge edge : edges) {
+            tree.setEdge(edge);
+            if (tree.isLooped()) {
+                tree.deleteEdge(edge);
             }
         }
-        return false;
+        return tree;
     }
 }
 
