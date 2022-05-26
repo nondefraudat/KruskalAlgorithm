@@ -114,22 +114,20 @@ public class ConnectedUndirectedWeightedGraph {
 
     // Возврощает true, если граф зациклен
     public Boolean isLooped() {
-        Character randomVertex = null;
         for (Character vertex : weights.keySet()) {
-            randomVertex = vertex;
-            break;
+            return isLooped(vertex, null, new ArrayList<>());
         }
-        return isLooped(randomVertex, null, new ArrayList<>());
+        return false;
     }
 
     // Рекурсия для определения зацикленности графа
     private Boolean isLooped(Character next, Character prev, List<Character> usedVertices) {
+        usedVertices.add(next);
         for (Character target : weights.get(next).keySet()) {
             if (target != prev && getEdgeWeight(next, target) != null) {
                 if (usedVertices.contains(target) || isLooped(target, next, usedVertices)) {
                     return true;
                 }
-                usedVertices.add(target);
             }
         }
         return false;
